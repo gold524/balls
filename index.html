@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style>
+		.circle{
+			width: 100px;
+			height: 100px;
+			position: absolute;
+			background-color: red;
+			border-radius: 50%;
+			transition: 1s;
+		}
+	</style>
+</head>
+<body class="body">
+	<h1>Очки: <span class="score"></span></h1>
+	<h2>Собери все шарики за 9 секунд</h2>
+	<!--право-->
+	<div class="circle" style="top: 225px; left: 1100px; width: 80px; height: 80px;"></div>
+	<div class="circle" style="top: 325px; left: 1100px; width: 70px; height: 70px;"></div>
+	<div class="circle" style="top: 425px; left: 1100px; width: 60px; height: 60px;"></div>
+	<div class="circle" style="top: 525px; left: 1100px; width: 50px; height: 50px;"></div>
+	<!--низ-->
+	<div class="circle" style="top: 625px; left: 900px; width: 80px; height: 80px;"></div>
+	<div class="circle" style="top: 625px; left: 700px; width: 70px; height: 70px;"></div>
+	<div class="circle" style="top: 625px; left: 500px; width: 60px; height: 60px;"></div>
+	<div class="circle" style="top: 625px; left: 300px; width: 50px; height: 50px;"></div>
+	<!--лево-->
+	<div class="circle" style="top: 525px; left: 100px; width: 50px; height: 50px;"></div>
+	<div class="circle" style="top: 425px; left: 100px; width: 60px; height: 60px;"></div>
+	<div class="circle" style="top: 325px; left: 100px; width: 70px; height: 70px;"></div>
+	<div class="circle" style="top: 225px; left: 100px; width: 80px; height: 80px;"></div>
+	<!--верх-->
+	<div class="circle" style="top: 125px; left: 900px; width: 50px; height: 50px;"></div>
+	<div class="circle" style="top: 125px; left: 700px; width: 60px; height: 60px;"></div>
+	<div class="circle" style="top: 125px; left: 500px; width: 70px; height: 70px;"></div>
+	<div class="circle" style="top: 125px; left: 300px; width: 80px; height: 80px;"></div>
+	<script>
+
+		let mover = 100;
+		let moveb = 100;
+		let movel = 600;
+		let movet = 600;
+		let circle = document.querySelectorAll(".circle");
+		let scoretxt = document.querySelector(".score");
+		let score = 0;
+		scoretxt.innerHTML = score;
+
+		function move(){
+			mover = mover + 30;
+			for(let i=0; i<4; i=i+1){
+				circle[i].style.left = mover * i + "px";
+				circle[i].style.backgroundColor = "orange";
+			}
+			moveb = moveb + 30;
+			for(let i=4; i<8; i=i+1){
+	       		circle[i].style.top = moveb + "px";
+				circle[i].style.backgroundColor = "green";
+	   		}
+			movel = movel + 30;
+			for(let i=8; i<12; i=i+1){
+	       		circle[i].style.left = movel + "px";
+				circle[i].style.backgroundColor = "blue";
+	   		}
+			movet = movet - 30;
+			for(let i=12; i<16; i=i+1){
+	       		circle[i].style.top = movet + "px";
+				circle[i].style.backgroundColor = "brown";
+	   		}
+		}
+
+		for (let i=0; i<16; i=i+1) {
+			circle[i].onclick = function(){
+				circle[i].style.display = "none";
+				score = score + 1;
+				scoretxt.innerHTML = score;
+				if(score == 16){
+					alert('вы выиграли!')
+				}
+			}
+		}
+		
+		function end(){
+			if (score <= 15){
+				alert('вы проиграли!');
+			}
+			for (let i=0; i<16; i=i+1){
+				circle[i].style.display = "none";
+			}
+		}
+
+		function tim(){
+			setInterval(move, 1000)
+			setTimeout(end, 9000)
+		}
+
+		setTimeout(tim, 1000)
+	</script>
+</body>
+</html>
